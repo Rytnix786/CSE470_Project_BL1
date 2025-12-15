@@ -1,20 +1,8 @@
-const nodemailer = require('nodemailer');
+// Simple email utility - logs to console since SMTP is not configured
+// To enable real emails, install nodemailer and configure SMTP settings in .env
 
-const createTransporter = () => {
-  // If SMTP credentials are provided, use real transporter
-  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
-    return nodemailer.createTransporter({
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT || 587,
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-  }
-  
-  // Fallback to console logging
+const createTransporter = () => {  
+  // Always use console logging (SMTP not configured)
   return {
     sendMail: async (mailOptions) => {
       console.log('\n📧 EMAIL (Console Mode - SMTP not configured):');
